@@ -22,6 +22,9 @@ blueprint:
         entity:
           domain: input_number
 
+variables:
+  source_sensor: !input source_sensor
+
 mode: single
 
 trigger:
@@ -33,4 +36,4 @@ action:
     target:
       entity_id: !input target_number
     data:
-      value: "{{ states(!input source_sensor) | float }}"
+      value: "{{ states(source_sensor) | float }}"
