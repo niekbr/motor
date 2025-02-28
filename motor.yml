@@ -1,0 +1,36 @@
+blueprint:
+  name: "Value updater"
+  description: "Updates a target number input with the current value of another entity to show the difference"
+  domain: automation
+  input:
+    button_entity:
+      name: "Trigger Button"
+      description: "The button that will trigger the update."
+      selector:
+        entity:
+          domain: button
+    source_sensor:
+      name: "Source Number"
+      description: "The value which should be set when the button is pressed."
+      selector:
+        entity:
+          domain: sensor
+    target_number:
+      name: "Target Input Number"
+      description: "The number input to update when the button is pressed."
+      selector:
+        entity:
+          domain: input_number
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input button_entity
+
+action:
+  - service: input_number.set_value
+    target:
+      entity_id: !input target_number
+    data:
+      value: "{{ states(!input source_sensor) | float }}"
