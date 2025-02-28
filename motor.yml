@@ -8,7 +8,7 @@ blueprint:
       description: "The button that will trigger the update."
       selector:
         entity:
-          domain: button
+          domain: input_button
     source_sensor:
       name: "Source Number"
       description: "The value which should be set when the button is pressed."
